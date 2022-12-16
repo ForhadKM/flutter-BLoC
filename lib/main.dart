@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_practice/cubit/num_counter_cubit.dart';
+import 'package:flutter_bloc_practice/cubit/text_show_cubit.dart';
+import 'package:flutter_bloc_practice/cubit/text_show_state.dart';
+import 'package:flutter_bloc_practice/figma%20test/sample.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,15 +17,15 @@ class MyApp extends StatelessWidget {
   //? This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NumCounterCubit(),
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: BlocProvider(
+          create: (context) => NumCounterCubit(),
+          child: MyHomePage(title: 'Flutter Demo Home Page')),
+      // home: FigmaToFlutterScreen(),
     );
   }
 }
@@ -51,35 +54,74 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(
             height: 12,
           ),
-          BlocBuilder<NumCounterCubit, NumCounterState>(
+          Column(children: [
+            BlocConsumer<NumCounterCubit, NumCounterState>(
+                builder: (context, state) {
+              return Text(
+                state.numCountValue.toString(),
+                style: Theme.of(context).textTheme.headlineMedium,
+              );
+            }, listener: (context, state) {
+              print('Clicked');
+            }),
+            //v: blocBuilder for counter text
+            /*  BlocBuilder<NumCounterCubit, NumCounterState>(
             builder: (context, state) {
               return Text(
                 state.numCountValue.toString(),
                 style: Theme.of(context).textTheme.headlineMedium,
               );
             },
-          ),
+            ), */
+            SizedBox(
+              height: 24,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<NumCounterCubit>(context)
+                        .mNumDecCounterAndNotifier();
+                    // BlocProvider.of<NumCounterCubit>(context).mClickNotifier();
+                  },
+                  tooltip: 'Decrement',
+                  child: Icon(Icons.remove),
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    BlocProvider.of<NumCounterCubit>(context)
+                        .mNumIncCounterAndNotifier();
+                    // BlocProvider.of<NumCounterCubit>(context).mClickNotifier();
+                  },
+                  tooltip: "Increment",
+                  child: Icon(Icons.add),
+                )
+              ],
+            ),
+          ]),
+
           SizedBox(
             height: 24,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<NumCounterCubit>(context).numDecrement();
-                },
-                tooltip: 'Decrement',
-                child: Icon(Icons.remove),
-              ),
-              FloatingActionButton(
-                onPressed: () {
-                  BlocProvider.of<NumCounterCubit>(context).numIncrement();
-                },
-                tooltip: "Increment",
-                child: Icon(Icons.add),
-              )
-            ],
+          //V: Click notifier text
+          BlocConsumer<NumCounterCubit, NumCounterState>(
+            builder: (context, state) {
+              if (state.numCountValue > 0) {
+                return Text(
+                  "${state.numCountValue} ${state.numCountValue}",
+                  style: TextStyle(
+                      color: Colors.black45,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24),
+                );
+              } else {
+                return Container();
+              }
+            },
+            listener: (context, state) {
+              print('Called TextView');
+            },
           )
         ]),
       ),

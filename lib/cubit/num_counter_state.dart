@@ -1,7 +1,13 @@
 part of 'num_counter_cubit.dart';
 
 class NumCounterState {
-  int numCountValue;
+  late int numCountValue;
+  late String notifierText;
 
-  NumCounterState({required this.numCountValue});
+  NumCounterState.nInit(
+      {required this.numCountValue, required this.notifierText});
+  NumCounterState.nCounter({required this.numCountValue});
+  NumCounterState.nTextNotifier({required this.notifierText});
+  NumCounterState.nCounterAndNotifier(
+      {required this.numCountValue, required this.notifierText});
 }
