@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_practice/cubit/text_show_state.dart';
+import 'package:flutter_bloc_practice/business_logic/cubits/text_show_state.dart';
 
 class TextShowCubit extends Cubit<TextShowState> {
   TextShowCubit()

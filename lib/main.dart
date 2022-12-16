@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_practice/cubit/num_counter_cubit.dart';
-import 'package:flutter_bloc_practice/cubit/text_show_cubit.dart';
-import 'package:flutter_bloc_practice/cubit/text_show_state.dart';
-import 'package:flutter_bloc_practice/figma%20test/sample.dart';
+import 'package:flutter_bloc_practice/business_logic/cubits/num_counter_cubit.dart';
+
 
 void main() {
   runApp(const MyApp());

@@ -1,6 +1,6 @@
 class TextShowState {
   String normalText;
-   int? clickCount;
+  int? clickCount;
 
   TextShowState({required this.normalText, this.clickCount});
 }
